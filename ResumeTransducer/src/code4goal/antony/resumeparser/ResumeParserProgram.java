@@ -43,8 +43,6 @@ import org.xml.sax.SAXException;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.google.gson.JsonObject;
-
 public class ResumeParserProgram {
 	private static File parseToHTMLUsingApacheTikka(String file)
 			throws IOException, SAXException, TikaException {
@@ -128,25 +126,21 @@ public class ResumeParserProgram {
 
 			// Name
 			curAnnSet = defaultAnnotSet.get("NameFinder");
-			if (curAnnSet.iterator().hasNext()) { // only one name will be
-													// found.
+			if (curAnnSet.iterator().hasNext()) 
+			{ // only one name will be found.
 				currAnnot = (Annotation) curAnnSet.iterator().next();
-				String gender = (String) currAnnot.getFeatures().get("gender");
-				if (gender != null && gender.length() > 0) {
-					profileJSON.put("gender", gender);
-				}
-
 				// Needed name Features
-				JSONObject nameJson = new JSONObject();
-				String[] nameFeatures = new String[] { "firstName",
-						"middleName", "surname" };
-				for (String feature : nameFeatures) {
+				String[] nameFeatures = new String[] { "firstName","middleName", "surname" };
+				StringBuilder sb = new StringBuilder();
+				for (String feature : nameFeatures) 
+				{
 					String s = (String) currAnnot.getFeatures().get(feature);
-					if (s != null && s.length() > 0) {
-						nameJson.put(feature, s);
+					if (s != null && s.length() > 0) 
+					{
+						sb.append(s).append(" ");
 					}
 				}
-				profileJSON.put("name", nameJson);
+				profileJSON.put("name", sb);
 			} // name
 
 			// title
@@ -267,15 +261,16 @@ public class ResumeParserProgram {
 		String inputFileName = args[0];
 		String outputFileName = (args.length == 2) ? args[1]
 				: "parsed_resume.json";
-
+			
 		try {
 			File tikkaConvertedFile = parseToHTMLUsingApacheTikka(inputFileName);
 			if (tikkaConvertedFile != null) {
 				JSONObject parsedJSON = loadGateAndAnnie(tikkaConvertedFile);
-
+				
+				JSONObject resultJSON = resultJSON(parsedJSON);
 				Out.prln("Writing to output...");
 				FileWriter jsonFileWriter = new FileWriter(outputFileName);
-				jsonFileWriter.write(parsedJSON.toJSONString());
+				jsonFileWriter.write(resultJSON.toJSONString());
 				jsonFileWriter.flush();
 				jsonFileWriter.close();
 				Out.prln("Output written to file " + outputFileName);
@@ -287,4 +282,115 @@ public class ResumeParserProgram {
 			e.printStackTrace();
 		}
 	}
+	public static JSONObject resultJSON(JSONObject obj)
+	{
+		  JSONObject resultJSON = new JSONObject();
+		  resultJSON.put("basics",basicJSON(obj));
+		  //Out.prln(resultJSON);
+		  resultJSON.put("work",workJSON(obj));
+		  resultJSON.put("interests",interestsJSON(obj));
+		  resultJSON.put("education",educationJSON(obj));
+		  resultJSON.put("skills",skillsJSON(obj));
+		  return resultJSON;
+	}
+	
+	
+public static JSONObject basicJSON(JSONObject obj)
+	{
+	  JSONObject basicJSON = new JSONObject();
+		  if(obj.containsKey("basics"))
+		  {
+		  			 //Out.prln(obj.get(key));
+			  JSONObject subObj =(JSONObject)obj.get("basics");
+			  String[] basics = {"name","title","email","phone","url"};
+			  String[] summary = {"summary"};
+			  for(String key1:basics)
+			  	{
+				  if(subObj.containsKey(key1))
+				  {
+					  if(key1=="title")
+						  basicJSON.put("label", subObj.get(key1));
+					  else if(key1=="url")
+						  basicJSON.put("website", subObj.get(key1));
+					  else
+						  basicJSON.put(key1, subObj.get(key1));
+				  }
+			  	}
+		  	}
+		  if(obj.containsKey("summary"))
+		  {
+			  JSONArray arr = (JSONArray)obj.get("summary");
+			  basicJSON.put("summary",((JSONObject)arr.get(0)).get("Summary"));
+		  }	  //basicsJSON.put("basics", basicJSON);
+	  return basicJSON;
+	}
+public static JSONArray workJSON(JSONObject obj)
+	{
+		  JSONArray workJSON = new JSONArray();
+			  if(obj.containsKey("work_experience"))
+			  {
+				  JSONArray arr = (JSONArray)obj.get("work_experience");
+				  String[] works = {"organization","jobtitle","url","date_start","date_end","text"};
+				  for(int i=0;i<arr.size();i++)
+				  {
+					  JSONObject json = (JSONObject)arr.get(i);
+					  JSONObject work = new JSONObject();
+					  for(String key:works)
+					  {
+						  if(json.containsKey(key))
+						  {
+							  if(key=="organization")
+								  work.put("company",json.get(key));
+							  else if(key=="jobtitle")
+							  work.put("position",json.get(key));
+							  else if(key=="url")
+								  work.put("website",json.get(key));
+							  else if(key=="date_start")
+								  work.put("startDate",json.get(key));
+							  else if(key=="date_end")
+								  work.put("endDate",json.get(key));
+							  else if(key=="text")
+								  work.put("summary",json.get(key));
+						  }
+					  }
+					  workJSON.add(work);
+				  }
+			  }
+		return workJSON;
+	}
+public static JSONArray interestsJSON(JSONObject obj)
+{
+	JSONObject interestsJSON = new JSONObject();
+	JSONArray  arr = new JSONArray();
+		  if(obj.containsKey("misc"))
+		  {
+			  arr = (JSONArray)obj.get("misc");
+		  }
+	  return arr;
+}
+public static JSONArray educationJSON(JSONObject obj)
+{
+	JSONArray  arr = new JSONArray();
+	if(obj.containsKey("basics"))
+	{
+		  if(obj.containsKey("education_and_training"))
+		  {
+			  arr = (JSONArray)obj.get("education_and_training");
+		  }
+	}
+	return arr;
+}
+public static JSONArray skillsJSON(JSONObject obj)
+{
+	JSONArray  arr = new JSONArray();
+	if(obj.containsKey("basics"))
+	{
+		  if(obj.containsKey("skills"))
+		  {
+			  arr = (JSONArray)obj.get("skills");
+		  }
+	}
+	return arr;
+}
+
 }
