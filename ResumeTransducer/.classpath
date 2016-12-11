@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="bin/ResumeTransducer.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/tika-app-1.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/bin/gate.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/bin/gateLauncher.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
