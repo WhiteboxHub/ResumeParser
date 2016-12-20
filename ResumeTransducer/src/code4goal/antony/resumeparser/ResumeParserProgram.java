@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.pdfbox.util.operator.Concatenate;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.exception.TikaException;
@@ -130,7 +131,7 @@ public class ResumeParserProgram {
 			{ // only one name will be found.
 				currAnnot = (Annotation) curAnnSet.iterator().next();
 				// Needed name Features
-				String[] nameFeatures = new String[] { "firstName","middleName", "surname" };
+				/*String[] nameFeatures = new String[] { "firstName","middleName", "surname" };
 				StringBuilder sb = new StringBuilder();
 				for (String feature : nameFeatures) 
 				{
@@ -140,9 +141,21 @@ public class ResumeParserProgram {
 						sb.append(s).append(" ");
 					}
 				}
-				profileJSON.put("name", sb);
+				profileJSON.put("name",sb);
 			} // name
-
+*/
+				// Needed name Features
+				JSONObject nameJson = new JSONObject();
+				String[] nameFeatures = new String[] { "firstName",
+						"middleName", "surname" };
+				for (String feature : nameFeatures) {
+					String s = (String) currAnnot.getFeatures().get(feature);
+					if (s != null && s.length() > 0) {
+						nameJson.put(feature, s);
+					}
+				}
+				profileJSON.put("name", nameJson);
+			} // name
 			// title
 			curAnnSet = defaultAnnotSet.get("TitleFinder");
 			if (curAnnSet.iterator().hasNext()) { // only one title will be
@@ -288,7 +301,10 @@ public class ResumeParserProgram {
 		  resultJSON.put("basics",basicJSON(obj));
 		  //Out.prln(resultJSON);
 		  resultJSON.put("work",workJSON(obj));
-		  resultJSON.put("interests",interestsJSON(obj));
+		  JSONArray array = interestsJSON(obj);
+		  if(!array.isEmpty()){
+		  resultJSON.put("interests",array);
+		  }
 		  resultJSON.put("education",educationJSON(obj));
 		  resultJSON.put("skills",skillsJSON(obj));
 		  return resultJSON;
@@ -312,15 +328,47 @@ public static JSONObject basicJSON(JSONObject obj)
 						  basicJSON.put("label", subObj.get(key1));
 					  else if(key1=="url")
 						  basicJSON.put("website", subObj.get(key1));
+					  else if(key1=="name")
+					  {
+						String s="";
+						JSONObject nameObj = (JSONObject) subObj.get("name");
+						String names[] = {"firstName","middleName","surname"};
+						for(String key:names)  
+						{
+						if(nameObj.containsKey(key))
+						  {
+							  String name = (String) nameObj.get(key);
+							  s=s+name+" ";
+								//Out.prln(s);
+						  }
+						}
+						  basicJSON.put(key1,s);
+					  }
+
 					  else
 						  basicJSON.put(key1, subObj.get(key1));
 				  }
 			  	}
 		  	}
+		  //JSONArray summaryJSON = new JSONArray();
 		  if(obj.containsKey("summary"))
 		  {
 			  JSONArray arr = (JSONArray)obj.get("summary");
-			  basicJSON.put("summary",((JSONObject)arr.get(0)).get("Summary"));
+			  String[] summary = {"Summary","SUMMARY","PROFESSIONAL SUMMARY","CAREER OBJECTIVE","PROFESSIONAL EXPERIENCE","Profile","PROFILE","Career Summary"};
+			  for(int i=0;i<arr.size();i++)
+			  {
+				  JSONObject json = (JSONObject)arr.get(i);
+				  JSONObject sum = new JSONObject();
+				  for(String key:summary)
+				  {
+					  if(json.containsKey(key))
+					  {
+						  basicJSON.put("summary",json.get(key));
+					  }
+				  }
+				  //basicJSON.put("summary",sum);  
+			  }
+			  //basicJSON.put("summary",summaryJSON);
 		  }	  //basicsJSON.put("basics", basicJSON);
 	  return basicJSON;
 	}
@@ -330,14 +378,14 @@ public static JSONArray workJSON(JSONObject obj)
 			  if(obj.containsKey("work_experience"))
 			  {
 				  JSONArray arr = (JSONArray)obj.get("work_experience");
-				  String[] works = {"organization","jobtitle","url","date_start","date_end","text"};
+				  String[] works = {"organization","jobtitle","url","date_start","date_end","text","Projects"};
 				  for(int i=0;i<arr.size();i++)
 				  {
 					  JSONObject json = (JSONObject)arr.get(i);
 					  JSONObject work = new JSONObject();
 					  for(String key:works)
 					  {
-						  if(json.containsKey(key))
+						  if((json.containsKey(key)))
 						  {
 							  if(key=="organization")
 								  work.put("company",json.get(key));
@@ -351,11 +399,21 @@ public static JSONArray workJSON(JSONObject obj)
 								  work.put("endDate",json.get(key));
 							  else if(key=="text")
 								  work.put("summary",json.get(key));
+							  else
+								  work.put("summary",json.get(key));
 						  }
 					  }
+					  if(!work.isEmpty()){
 					  workJSON.add(work);
+					  }
 				  }
 			  }
+		/*	  JSONArray resultJSON = new JSONArray();
+		for(int i=0;i<workJSON.size();i++)	  
+		{
+		if (!workJSON.get(i).equals(null))
+			resultJSON.add(workJSON.get(i));
+		}*/
 		return workJSON;
 	}
 public static JSONArray interestsJSON(JSONObject obj)
@@ -364,6 +422,7 @@ public static JSONArray interestsJSON(JSONObject obj)
 	JSONArray  arr = new JSONArray();
 		  if(obj.containsKey("misc"))
 		  {
+			  
 			  arr = (JSONArray)obj.get("misc");
 		  }
 	  return arr;
