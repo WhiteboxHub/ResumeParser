@@ -28,7 +28,6 @@ Rule: NameRule
 			}
 		}
 
-		//If not get the match that has kind->fullname within the first 10 sentences
 		for(Annotation person : persons){
 			if(person.getFeatures().containsKey("kind") && person.getFeatures().get("kind").equals("fullName")){
 				FeatureMap features = person.getFeatures();
