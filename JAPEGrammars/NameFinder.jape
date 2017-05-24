@@ -1,9 +1,9 @@
 Phase: NameFinder
 Input: Sentence Person
-Options: control = once debug = true
+Options: control = all debug = true
 Rule: NameRule
 (
-(({Sentence})[10])
+(({Sentence})[1])
 )
 :profileSection
 -->

@@ -9,5 +9,47 @@
 	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/bin/gateLauncher.jar"/>
 	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/ant-1.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/ant-launcher-1.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/apache-mime4j-core-0.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/apache-mime4j-dom-0.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/bcmail-jdk15-1.45.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/bcprov-jdk15-1.45.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-compress-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/flying-saucer-core-9.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/fontbox-1.8.4.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/gate-asm-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/gate-compiler-jdt-4.3.2-P20140317-1600.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/ivy-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/jackson-annotations-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/jackson-core-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/jackson-databind-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/java-getopt-1.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/jaxen-1.1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/jdom-1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/jempbox-1.8.4.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/metadata-extractor-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/nekohtml-1.9.14.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/pdfbox-1.8.4.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/spring-aop-2.5.6.SEC01.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/spring-beans-2.5.6.SEC01.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/spring-core-2.5.6.SEC01.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/stax2-api-3.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/tika-core-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/tika-parsers-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/woodstox-core-lgpl-4.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/xercesImpl-2.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/xmlunit-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/GATEFiles/lib/xstream-1.4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/ResumeTransducer/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Training/ResumeParser/ResumeTransducer/lib/tika-app-1.7.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
