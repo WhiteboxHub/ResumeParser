@@ -11,6 +11,8 @@ Rule: TitleRule
 	AnnotationSet titleSet = bindings.get("titleLookup");
 	AnnotationSet profileSection = inputAS.get("ProfileSection");
 
+	//this is title finder
+	
 	if(titleSet != null && titleSet.size() > 0){
 		//Try to find the title within the most probable location (first 10 lines of the document; a.k.a within the first page)
 		AnnotationSet titles = titleSet.getContained(profileSection.firstNode().getOffset(),profileSection.lastNode().getOffset());
